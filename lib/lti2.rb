@@ -1,5 +1,6 @@
-require "lti2/version"
+require 'lti2/version'
+require 'active_model'
 
 module LTI2
-  # Your code goes here...
+  require 'lti2/models'
 end
