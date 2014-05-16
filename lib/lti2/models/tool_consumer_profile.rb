@@ -4,7 +4,7 @@ module LTI2::Models
     CONTEXT = "http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile"
     TYPE = "ToolConsumerProfile"
 
-    attr_accessor :id, :lti_version, :guid, :product_instance, :capability_offered, :service_offered
+    add_attributes :id, :lti_version, :guid, :product_instance, :capability_offered, :service_offered
 
 
     def as_json(options={})
