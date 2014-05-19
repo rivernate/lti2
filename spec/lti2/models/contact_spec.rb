@@ -8,5 +8,11 @@ module LTI2::Models
       json = subject.as_json
       expect(json).to eq({'email' => 'my_email@foo.com'})
     end
+
+    it 'deserializes JSON' do
+      subject.from_json('{"email": "my_email@fool.com"}')
+      expect(subject.email).to eq "my_email@fool.com"
+    end
+
   end
 end
