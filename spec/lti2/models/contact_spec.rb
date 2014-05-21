@@ -10,8 +10,8 @@ module LTI2::Models
     end
 
     it 'deserializes JSON' do
-      subject.from_json('{"email": "my_email@fool.com"}')
-      expect(subject.email).to eq "my_email@fool.com"
+      subject.from_json(fixture('models/contact.json').read)
+      expect(subject.email).to eq "support@lms.example.com"
     end
 
   end

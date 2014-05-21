@@ -12,5 +12,11 @@ module LTI2::Models
                                     })
     end
 
+    it 'deserializes JSON' do
+      subject.from_json(fixture('models/localized_name.json').read)
+      expect(subject.default_value).to eq 'LMS Corporation'
+      expect(subject.key).to eq 'product.vendor.name'
+    end
+
   end
 end

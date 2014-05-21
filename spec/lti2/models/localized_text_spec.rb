@@ -12,5 +12,12 @@ module LTI2::Models
                                       'key' => 'key'
                                     })
     end
+
+    it 'deserializes JSON' do
+      subject.from_json(fixture('models/localized_text.json').read)
+      expect(subject.default_value).to eq 'LMS Corporation is a fictitious vendor of a Learning Management System'
+      expect(subject.key).to eq 'product.vendor.description'
+    end
+
   end
 end
