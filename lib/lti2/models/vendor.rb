@@ -8,5 +8,13 @@ module LTI2::Models
     add_attribute :description, relation:'LTI2::Models::LocalizedText'
     add_attribute :timestamp, json_converter: 'LTI2::Converters::TimeJSONConverter'
 
+    def create_vendor_name(name, key = 'vendor.name')
+      @vendor_name = LocalizedName.new(name, key)
+    end
+
+    def create_description(name, key = 'vendor.description')
+      @description = LocalizedText.new(name, key)
+    end
+
   end
 end

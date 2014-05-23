@@ -5,10 +5,10 @@ module LTI2::Models
 
     it 'serialize to JSON' do
       subject.guid = 'my_guid'
-      subject.product_info = double('product_info', serializable_hash: {'json_key'=> 'json_value'})
-      subject.service_owner = double('service_owner', serializable_hash: {'json_key'=> 'json_value'})
-      subject.service_provider = double('service_provider', serializable_hash: {'json_key'=> 'json_value'})
-      subject.support = double('support', serializable_hash: {'json_key'=> 'json_value'})
+      subject.product_info = double('product_info', as_json: {'json_key'=> 'json_value'})
+      subject.service_owner = double('service_owner', as_json: {'json_key'=> 'json_value'})
+      subject.service_provider = double('service_provider', as_json: {'json_key'=> 'json_value'})
+      subject.support = double('support', as_json: {'json_key'=> 'json_value'})
       expect(subject.as_json).to eq({
                                       'guid' => 'my_guid',
                                       'product_info' => {'json_key'=> 'json_value'},

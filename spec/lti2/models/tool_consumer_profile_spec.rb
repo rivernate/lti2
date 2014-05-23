@@ -6,9 +6,9 @@ module LTI2::Models
       subject.id = 'my_id'
       subject.lti_version = 'lti_v2p0'
       subject.guid = 'my_guid'
-      subject.product_instance = double('product_instance', serializable_hash: {'json_key'=> 'json_value'})
+      subject.product_instance = double('product_instance', as_json: {'json_key'=> 'json_value'})
       subject.capability_offered = %w(123 abc)
-      subject.service_offered = double('service_offered', serializable_hash: {'json_key'=> 'json_value'})
+      subject.service_offered = double('service_offered', as_json: {'json_key'=> 'json_value'})
       expect(subject.as_json).to eq({
                                       '@context' => [described_class::CONTEXT],
                                       '@type' => described_class::TYPE,

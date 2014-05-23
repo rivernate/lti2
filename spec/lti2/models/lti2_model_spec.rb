@@ -75,7 +75,7 @@ module LTI2::Models
         expect(model.uno).to eq 1
       end
 
-      describe '#from_json' do
+      describe '#as_json' do
         it 'serializes to custom json keys' do
           model = SampleClass.new
           model.one = 'one'

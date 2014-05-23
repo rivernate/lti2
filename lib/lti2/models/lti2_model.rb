@@ -1,6 +1,5 @@
 module LTI2::Models
   class LTI2Model
-    include ActiveModel::Serializers::JSON
 
     def self.add_attributes(attribute, *attrs)
       attrs.unshift(attribute)
@@ -33,24 +32,36 @@ module LTI2::Models
       end
     end
 
-    def as_json(options={})
-      json_hash = super(
-        {
-          except: serialization_attrs_for(:json_key, :json_converter),
-          include: serialization_attrs_for(:relation)
-        }.merge(options)
-      )
+    def as_json
+      # json_hash = super(
+      #   {
+      #     except: serialization_attrs_for(:json_key, :json_converter),
+      #     include: serialization_attrs_for(:relation)
+      #   }.merge(options)
+      # )
+      json_hash = attributes
+      serialization_attrs_for(:json_key).each {|attr| json_hash.delete(attr.to_s)}
+      serialization_attrs_for(:relation).each do |attr|
+        val = attributes[attr.to_s]
+        json_hash[json_key(attr)] = val.as_json if val
+      end
       json_hash.merge! to_json_conversions
       json_hash.merge! to_json_keys
       json_hash
     end
 
-    def from_json(json, include_root=include_root_in_json)
-      hash = ActiveSupport::JSON.decode(json)
+    def to_json
+      self.as_json.to_json
+    end
+
+    def from_json(json)
+      hash = JSON.parse(json)
       change_json_keys_to_attrs!(hash)
       hash.merge! from_json_conversions(hash)
       deserialize_json_relations!(hash)
-      super(hash.to_json, include_root)
+      self.attributes=(hash)
+      self
+      #super(hash.to_json, include_root)
     end
 
     private
@@ -64,7 +75,7 @@ module LTI2::Models
       if converters = serialization_options[:json_converter]
         converters.each do |attr, converter|
           value = attributes[attr.to_s]
-          result[json_key(attr)] = converter.constantize.to_json_value(value) if value
+          result[json_key(attr)] = get_constant(converter).to_json_value(value) if value
         end
       end
       result
@@ -74,7 +85,7 @@ module LTI2::Models
       result = {}
       if attrs = serialization_attrs_for(:json_key)
         conversion_attrs = serialization_attrs_for(:json_converter)
-        attrs.each { |attr| result[json_key(attr)] = self.send(attr) unless conversion_attrs.include?(attr) }
+        attrs.each { |attr| result[json_key(attr)] = attributes[attr.to_s] unless conversion_attrs.include?(attr) }
       end
       result
     end
@@ -92,7 +103,7 @@ module LTI2::Models
       result = {}
       if converters = serialization_options[:json_converter]
         converters.each do |attr, converter|
-          result[attr] = converter.constantize.from_json_value(hash[attr.to_s]) if hash[attr.to_s]
+          result[attr] = get_constant(converter).from_json_value(hash[attr.to_s]) if hash[attr.to_s]
         end
       end
       result
@@ -103,7 +114,7 @@ module LTI2::Models
         attrs = {}
         relations.each do |attr, relation|
           hash_val = hash.delete(attr.to_s)
-          attrs[attr.to_s] = relation.constantize.new.from_json(hash_val.to_json) if hash_val
+          attrs[attr.to_s] = get_constant(relation).new.from_json(hash_val.to_json) if hash_val
         end
         self.attributes = attrs
       end
@@ -131,6 +142,12 @@ module LTI2::Models
 
     def serialization_options
       self.class.serialization_options
+    end
+    
+    def get_constant(constant)
+      obj = Object
+      constant.split('::').each { |c| obj = obj.const_get(c)}
+      obj
     end
 
   end

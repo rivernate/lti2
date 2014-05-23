@@ -18,5 +18,13 @@ module LTI2::Models
       expect(subject.key).to eq 'product.vendor.name'
     end
 
+
+    it 'creates a name with the key and default value' do
+      name = described_class.new('default name', 'default.key')
+      expect(name.default_value).to eq 'default name'
+      expect(name.key).to eq 'default.key'
+
+    end
+
   end
 end

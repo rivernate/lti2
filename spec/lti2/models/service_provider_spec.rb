@@ -7,9 +7,9 @@ module LTI2::Models
       subject.id = 'id_1'
       subject.guid = 'my_guid'
       subject.timestamp = Time.parse('2014-05-16T09:30:16.338-06:00')
-      subject.service_provider_name = double('description', serializable_hash: {'json_key'=> 'json_value'})
-      subject.description = double('description', serializable_hash: {'json_key'=> 'json_value'})
-      subject.support = double('description', serializable_hash: {'json_key'=> 'json_value'})
+      subject.service_provider_name = double('description', as_json: {'json_key'=> 'json_value'})
+      subject.description = double('description', as_json: {'json_key'=> 'json_value'})
+      subject.support = double('description', as_json: {'json_key'=> 'json_value'})
 
       json = subject.as_json
       timestamp = json.delete('timestamp')

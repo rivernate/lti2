@@ -1,5 +1,5 @@
 require 'lti2/version'
-require 'active_model'
+require 'json'
 
 module LTI2
   require 'lti2/models'

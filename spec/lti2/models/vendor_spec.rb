@@ -6,11 +6,11 @@ module LTI2::Models
     it 'serializes to JSON' do
       subject.id = '1'
       subject.code = 'my_code'
-      subject.vendor_name = double('vendor_name', serializable_hash: {'json_key'=> 'json_value'})
-      subject.description = double('description', serializable_hash: {'json_key'=> 'json_value'})
+      subject.vendor_name = double('vendor_name', as_json: {'json_key'=> 'json_value'})
+      subject.description = double('description', as_json: {'json_key'=> 'json_value'})
       subject.website = 'http://some_website.invalid'
       subject.timestamp = Time.parse('2014-05-16T09:30:16.338-06:00')
-      subject.contact = double('contact', serializable_hash: {'json_key'=> 'json_value'})
+      subject.contact = double('contact', as_json: {'json_key'=> 'json_value'})
 
       json = subject.as_json
       timestamp = json.delete('timestamp')
