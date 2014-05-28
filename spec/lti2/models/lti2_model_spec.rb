@@ -3,6 +3,13 @@ require 'spec_helper'
 module LTI2::Models
   describe LTI2Model do
 
+    it 'can initilize with a hash' do
+      described_class.add_attributes(:one, :two)
+      obj = described_class.new(one: 1, two: 2)
+      expect(obj.one).to eq 1
+      expect(obj.two).to eq 2
+    end
+
     describe "#add_attributes" do
       it 'adds attributes' do
         described_class.add_attributes(:one)

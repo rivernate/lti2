@@ -1,5 +1,10 @@
 module LTI2::Models
   class LTI2Model
+    LTI_VERSION_2P0 = 'LTI-2p0'
+
+    def initialize(attributes = {})
+      self.attributes = attributes
+    end
 
     def self.add_attributes(attribute, *attrs)
       attrs.unshift(attribute)

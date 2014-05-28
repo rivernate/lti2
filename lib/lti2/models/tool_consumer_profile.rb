@@ -4,8 +4,6 @@ module LTI2::Models
     CONTEXT = "http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile"
     TYPE = "ToolConsumerProfile"
 
-    LTI_VERSION_2P0 = 'LTI-2p0'
-
     add_attributes :lti_version, :guid, :capability_offered
     add_attribute :id, json_key:'@id'
     add_attribute :type, json_key:'@type'

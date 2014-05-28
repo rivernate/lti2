@@ -12,5 +12,6 @@ module LTI2
     require_relative 'models/service_provider'
     require_relative 'models/tool_consumer_profile'
     require_relative 'models/vendor'
+    require_relative 'models/messages'
   end
 end
