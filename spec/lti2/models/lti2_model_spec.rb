@@ -10,6 +10,30 @@ module LTI2::Models
       expect(obj.two).to eq 2
     end
 
+    describe 'inherited attributes' do
+
+      class A < described_class
+        add_attribute :aisle
+      end
+
+      class B < A
+        add_attribute :bdellium
+      end
+
+      class C < B
+        add_attribute :czar
+      end
+
+      it 'collects the attributes from all the parent classes' do
+        c = C.new
+        c.aisle = 'a'
+        c.bdellium = 'b'
+        c.czar = 'c'
+        expect(c.attributes).to eq({'aisle' => 'a', 'bdellium' => 'b', 'czar' => 'c'})
+      end
+
+    end
+
     describe "#add_attributes" do
       it 'adds attributes' do
         described_class.add_attributes(:one)

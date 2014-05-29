@@ -4,7 +4,8 @@ module LTI2::Models::Messages
 
     REGISTRATION_REQUEST_MESSAGE_TYPE = 'ToolProxyRegistrationRequest'
 
-    def initialize
+    def initialize(attributes = {})
+      super(attributes)
       self.lti_message_type = REGISTRATION_REQUEST_MESSAGE_TYPE
     end
 

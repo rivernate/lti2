@@ -22,6 +22,15 @@ module LTI2::Models
       attr_accessor(attribute)
     end
 
+    def self.inherit_attributes(attrs)
+      attributes ||= []
+      self.attributes += attrs
+    end
+
+    def self.inherited(subclass)
+      subclass.inherit_attributes(self.attributes)
+    end
+
     def attributes
       attrs = {}
       self.class.attributes.each do |a|
@@ -148,7 +157,7 @@ module LTI2::Models
     def serialization_options
       self.class.serialization_options
     end
-    
+
     def get_constant(constant)
       obj = Object
       constant.split('::').each { |c| obj = obj.const_get(c)}
