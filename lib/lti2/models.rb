@@ -13,5 +13,17 @@ module LTI2
     require_relative 'models/tool_consumer_profile'
     require_relative 'models/vendor'
     require_relative 'models/messages'
+    require_relative 'models/tool_proxy'
+    require_relative 'models/tool_profile'
+    require_relative 'models/resource_handler'
+    require_relative 'models/resource_type'
+    require_relative 'models/message_handler'
+    require_relative 'models/parameter'
+    require_relative 'models/icon_info'
+    require_relative 'models/icon_endpoint'
+    require_relative 'models/security_contract'
+    require_relative 'models/rest_service_profile'
+    require_relative 'models/base_url_choice'
+    require_relative 'models/base_url_selector'
   end
 end
