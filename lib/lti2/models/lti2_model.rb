@@ -46,7 +46,7 @@ module LTI2::Models
       end
     end
 
-    def as_json
+    def as_json(options = {})
       # json_hash = super(
       #   {
       #     except: serialization_attrs_for(:json_key, :json_converter),
@@ -54,7 +54,7 @@ module LTI2::Models
       #   }.merge(options)
       # )
       json_hash = attributes
-      serialization_attrs_for(:json_key).each {|attr| json_hash.delete(attr.to_s)}
+      serialization_attrs_for(:json_key).each { |attr| json_hash.delete(attr.to_s) }
       serialization_attrs_for(:relation).each do |attr|
         val = attributes[attr.to_s]
         json_hash[json_key(attr)] = val.as_json if val
@@ -69,16 +69,23 @@ module LTI2::Models
     end
 
     def from_json(json)
-      hash = JSON.parse(json)
+      data = JSON.parse(json)
+      if data.is_a? Array
+        data.map { |hash| self.class.new.from_json(hash.to_json) }
+      else
+        process_json_hash(data)
+      end
+    end
+
+    private
+
+    def process_json_hash(hash)
       change_json_keys_to_attrs!(hash)
       hash.merge! from_json_conversions(hash)
       deserialize_json_relations!(hash)
       self.attributes=(hash)
       self
-      #super(hash.to_json, include_root)
     end
-
-    private
 
     def serialization_attrs_for(*keys)
       Array.new(serialization_options.keys & keys).map { |opt| serialization_options[opt].keys }.flatten.uniq
@@ -160,7 +167,7 @@ module LTI2::Models
 
     def get_constant(constant)
       obj = Object
-      constant.split('::').each { |c| obj = obj.const_get(c)}
+      constant.split('::').each { |c| obj = obj.const_get(c) }
       obj
     end
 

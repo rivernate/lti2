@@ -27,18 +27,25 @@ module LTI2::Models
                       )
     end
 
-    # it 'deserializes JSON' do
-    #   Contact.any_instance.stub(:from_json) {'contact_email'}
-    #   LocalizedText.any_instance.stub(:from_json) {'localized_text'}
-    #   LocalizedName.any_instance.stub(:from_json) {'localized_name'}
-    #   subject.from_json(fixture('models/vendor.json').read)
-    #   expect(subject.id).to eq 'http://lms.example.com/'
-    #   expect(subject.code).to eq 'lms.example.com'
-    #   expect(subject.website).to eq 'http://lms.example.com/products/omega'
-    #   expect(subject.timestamp.to_i).to eq Time.parse('2012-03-28T09:08:16-04:00').to_i
-    #   expect(subject.vendor_name).to eq 'localized_name'
-    #   expect(subject.description).to eq 'localized_text'
-    # end
+    describe '#default_name' do
+
+      it 'returns the default name' do
+        subject.vendor_name = LocalizedName.new('default_name', 'default.key')
+        expect(subject.default_name).to eq 'default_name'
+      end
+
+    end
+
+
+    describe '#default_description' do
+
+      it 'returns the default description' do
+        subject.description = LocalizedText.new('default_desc', 'default.desc.key')
+        expect(subject.default_description).to eq 'default_desc'
+      end
+
+    end
+
 
   end
 end

@@ -171,6 +171,11 @@ module LTI2::Models
           expect(model.attributes.values).to eq [1]
         end
 
+        it 'handels arrays of items' do
+          model = SampleClass.new.from_json('{"two": [{"a": "a"}, {"b": "b"}]}')
+          expect(model.two.count).to eq 2
+        end
+
       end
 
     end

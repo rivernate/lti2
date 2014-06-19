@@ -1,6 +1,6 @@
 module LTI2::Models
   class ToolProfile < LTI2Model
-    add_attributes :lti_version, :base_url_choice
+    add_attributes :lti_version
     add_attribute :id, json_key: '@id'
     add_attribute :product_instance, relation:'LTI2::Models::ProductInstance'
     add_attribute :base_url_choice, relation: 'LTI2::Models::BaseUrlChoice'

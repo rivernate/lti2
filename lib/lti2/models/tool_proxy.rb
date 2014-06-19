@@ -4,7 +4,7 @@ module LTI2::Models
     add_attribute :context, json_key:'@context'
     add_attribute :type, json_key:'@type'
     add_attribute :id, json_key:'@id'
-    add_attribute :tool_consumer_profile, relation:'LTI2::Models::ToolConsumerProfile'
+    add_attribute :tool_consumer_profile #, relation:'LTI2::Models::ToolConsumerProfile'
     add_attribute :tool_profile, relation:'LTI2::Models::ToolProfile'
     add_attribute :security_contract, relation:'LTI2::Models::SecurityContract'
   end
