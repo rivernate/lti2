@@ -141,6 +141,11 @@ module LTI2::Models
           expect(json['@four']).to eq 42
         end
 
+        it 'handles nil json_key values' do
+          model = SampleClass.new
+          expect(model.as_json.keys).to_not include '@one'
+        end
+
       end
 
       describe '#from_json' do

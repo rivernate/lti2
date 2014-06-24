@@ -47,12 +47,6 @@ module LTI2::Models
     end
 
     def as_json(options = {})
-      # json_hash = super(
-      #   {
-      #     except: serialization_attrs_for(:json_key, :json_converter),
-      #     include: serialization_attrs_for(:relation)
-      #   }.merge(options)
-      # )
       json_hash = attributes
       serialization_attrs_for(:json_key).each { |attr| json_hash.delete(attr.to_s) }
       serialization_attrs_for(:relation).each do |attr|
@@ -106,7 +100,7 @@ module LTI2::Models
       result = {}
       if attrs = serialization_attrs_for(:json_key)
         conversion_attrs = serialization_attrs_for(:json_converter)
-        attrs.each { |attr| result[json_key(attr)] = attributes[attr.to_s] unless conversion_attrs.include?(attr) }
+        attrs.each { |attr| result[json_key(attr)] = attributes[attr.to_s] unless conversion_attrs.include?(attr) || attributes[attr.to_s].nil? }
       end
       result
     end

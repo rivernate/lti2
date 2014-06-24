@@ -7,5 +7,16 @@ module LTI2::Models
     add_attribute :resource_handler, relation:'LTI2::Models::ResourceHandler'
     add_attribute :message, relation:'LTI2::Models::MessageHandler'
     add_attribute :service_offered, relation:'LTI2::Models::RestService'
+
+
+    def base_message_url
+      if base_url_choice
+        choice = base_url_choice.find { |choice| choice.default_message_url != '' }
+        choice.default_message_url
+      else
+        ''
+      end
+    end
+
   end
 end
