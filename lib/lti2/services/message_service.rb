@@ -1,6 +1,5 @@
 module LTI2::Services
   class MessageService
-    include IMS::LTI::RequestValidator
 
     def initialize(key, secret)
       @key = key
