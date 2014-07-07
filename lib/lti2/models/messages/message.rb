@@ -7,7 +7,8 @@ module LTI2::Models::Messages
                    :launch_presentation_document_target, :launch_presentation_css_url, :launch_presentation_width,
                    :launch_presentation_height
 
-
-
+    def post_params
+      as_json
+    end
   end
 end
