@@ -17,11 +17,10 @@ module LTI2::Services
         expect(params['oauth_consumer_key']).to eq "key"
         expect(params['oauth_signature_method']).to eq "HMAC-SHA1"
         expect(params['oauth_version']).to eq "1.0"
-        # expect(params['user_id']).to eq "user_id"
+        expect(params['user_id']).to eq "user_id"
         expect(params.key?('oauth_signature')).to eq true
         expect(params.key?('oauth_timestamp')).to eq true
         expect(params.key?('oauth_nonce')).to eq true
-        expect(params.key?('oauth_body_hash')).to eq true
       end
     end
 
@@ -41,8 +40,12 @@ module LTI2::Services
       end
     end
 
-    describe "#message" do
-      it "creates basic-lti-launch-request messages", :pending do
+    describe "#message", :pending do
+      it "creates basic-lti-launch-request messages" do
+        message = subject.message(params)
+      end
+
+      it "creates RegistrationRequest messages" do
         message = subject.message(params)
       end
     end

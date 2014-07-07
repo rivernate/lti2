@@ -13,7 +13,8 @@ module LTI2::Services
           :site => "#{uri.scheme}://#{uri.host}",
           :scheme => :body
       })
-      request = oauth_consumer.create_signed_request(:post, uri.request_uri) #, nil, {}, OAuth::Helper.normalize(message.post_params))
+      request = oauth_consumer.create_signed_request(:post, uri.request_uri, nil, {}, message.post_params)
+
       request
     end
 
